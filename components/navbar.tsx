@@ -28,9 +28,9 @@ const Navbar = () => {
         </Link>
       </div>
       <div className="flex items-center gap-x3">
-        <Button variant="premium" size="sm">
+        <Button variant="premium" size="sm" className="mr-4">
           Upgrade
-          <Sparkles className="h-4 w-4 fill-white text-white ml-2" />
+          <Sparkles className="h-4 w-4 fill-white text-white my-2" />
         </Button>
         <ModeToggle />
         <UserButton />
