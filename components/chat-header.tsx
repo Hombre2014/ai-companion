@@ -1,8 +1,6 @@
 'use client';
 
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
-import { Companion, Message } from '@prisma/client';
 import {
   ChevronLeft,
   Edit,
@@ -10,17 +8,19 @@ import {
   MoreVertical,
   Trash,
 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { Companion, Message } from '@prisma/client';
 import { useUser } from '@clerk/nextjs';
 
-import { Button } from './ui/button';
-import { BotAvatar } from './bot-avatar';
+import { Button } from '@/components/ui/button';
+import { BotAvatar } from '@/components/bot-avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from './ui/dropdown-menu';
-import { useToast } from './ui/use-toast';
+} from '@/components/ui/dropdown-menu';
+import { useToast } from '@/components/ui/use-toast';
 
 interface ChatHeaderProps {
   companion: Companion & {
@@ -39,19 +39,15 @@ export const ChatHeader = ({ companion }: ChatHeaderProps) => {
   const onDelete = async () => {
     try {
       await axios.delete(`/api/companion/${companion.id}`);
-
       toast({
-        title: 'Companion deleted.',
-        description: 'Your companion has been deleted.',
+        description: 'Success.',
       });
-
       router.refresh();
       router.push('/');
     } catch (error) {
       toast({
-        title: 'Something went wrong.',
-        description: 'Please try again later.',
         variant: 'destructive',
+        description: 'Something went wrong.',
       });
     }
   };
@@ -60,7 +56,7 @@ export const ChatHeader = ({ companion }: ChatHeaderProps) => {
     <div className="flex w-full justify-between items-center border-b border-primary/10 pb-4">
       <div className="flex gap-x-2 items-center">
         <Button onClick={() => router.back()} size="icon" variant="ghost">
-          <ChevronLeft className="w-8 h-8" />
+          <ChevronLeft className="h-8 w-8" />
         </Button>
         <BotAvatar src={companion.src} />
         <div className="flex flex-col gap-y-1">
@@ -79,7 +75,7 @@ export const ChatHeader = ({ companion }: ChatHeaderProps) => {
       {user?.id === companion.userId && (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button size="icon" variant="secondary">
+            <Button variant="secondary" size="icon">
               <MoreVertical />
             </Button>
           </DropdownMenuTrigger>
