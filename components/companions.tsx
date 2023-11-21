@@ -15,7 +15,7 @@ export const Companions = ({ data }: CompanionsProps) => {
       <div className="pt-10 flex flex-col items-center justify-center space-y-3">
         <div className="relative w-60 h-60">
           <Image
-            src="/Empty1.png"
+            src="/empty.png"
             alt="Empty"
             fill
             className="grayscale rounded-full"
