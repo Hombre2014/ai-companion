@@ -22,7 +22,7 @@ interface ChatClientProps {
 export const ChatClient = ({ companion }: ChatClientProps) => {
   const router = useRouter();
   const [messages, setMessages] = useState<ChatMessageProps[]>(
-    companion.messages
+    companion.messages as ChatMessageProps[]
   );
 
   const { input, isLoading, handleInputChange, handleSubmit, setInput } =
