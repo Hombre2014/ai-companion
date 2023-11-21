@@ -7,6 +7,8 @@ import { absoluteUrl } from '@/lib/utils';
 
 const settingsUrl = absoluteUrl('/settings');
 
+console.log('URL: ', settingsUrl);
+
 export async function GET() {
   try {
     const { userId } = auth();
@@ -60,6 +62,8 @@ export async function GET() {
         userId,
       },
     });
+
+    console.log('Stripe session', stripeSession);
 
     return new NextResponse(JSON.stringify({ url: stripeSession.url }));
   } catch (error) {

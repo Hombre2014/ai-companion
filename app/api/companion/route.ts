@@ -2,12 +2,15 @@ import { currentUser } from '@clerk/nextjs';
 import { NextResponse } from 'next/server';
 
 import prismadb from '@/lib/prismadb';
+import { checkSubscription } from '@/lib/subscription';
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
     const user = await currentUser();
     const { src, name, description, instructions, seed, categoryId } = body;
+
+    // console.log('User from currentUser:', user);
 
     if (!user || !user.id || !user.firstName) {
       console.log('User in API Companion route', user);
@@ -25,7 +28,13 @@ export async function POST(req: Request) {
       return new NextResponse('Missing required fields', { status: 400 });
     }
 
-    // TODO Check for subscription
+    const isPro = await checkSubscription();
+
+    if (!isPro) {
+      return new NextResponse('Please subscribe to use this feature', {
+        status: 403,
+      });
+    }
 
     const companion = await prismadb.companion.create({
       data: {
