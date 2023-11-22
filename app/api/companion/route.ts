@@ -10,10 +10,7 @@ export async function POST(req: Request) {
     const user = await currentUser();
     const { src, name, description, instructions, seed, categoryId } = body;
 
-    // console.log('User from currentUser:', user);
-
     if (!user || !user.id || !user.firstName) {
-      console.log('User in API Companion route', user);
       return new NextResponse('Unauthorized', { status: 401 });
     }
 

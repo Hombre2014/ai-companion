@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import { StreamingTextResponse, LangChainStream } from 'ai';
-import { auth, currentUser } from '@clerk/nextjs';
+import { currentUser } from '@clerk/nextjs';
 import { Replicate } from 'langchain/llms/replicate';
 import { CallbackManager } from 'langchain/callbacks';
 import { NextResponse } from 'next/server';
@@ -20,7 +20,6 @@ export async function POST(
     const user = await currentUser();
 
     if (!user || !user.firstName || !user.id) {
-      console.log('User in API Chat route', user);
       return new NextResponse('Unauthorized', { status: 401 });
     }
 

@@ -99,11 +99,9 @@ export const CompanionForm = ({
       if (initialData) {
         // Update Companion functionality
         await axios.patch(`/api/companion/${initialData.id}`, values);
-        console.log(values);
       } else {
         // Create Companion functionality
         await axios.post('/api/companion', values);
-        console.log(values);
       }
 
       toast({
